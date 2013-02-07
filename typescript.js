@@ -48,13 +48,21 @@ var Map = (function () {
 })();
 function keyInput(e) {
     if(e.keyCode == '38') {
-        player.move(0, -1);
+        if(player.y > 0) {
+            player.move(0, -1);
+        }
     } else if(e.keyCode == '37') {
-        player.move(-1, 0);
+        if(player.x > 0) {
+            player.move(-1, 0);
+        }
     } else if(e.keyCode == '39') {
-        player.move(1, 0);
+        if(player.x < (map.width - 1)) {
+            player.move(1, 0);
+        }
     } else if(e.keyCode == '40') {
-        player.move(0, 1);
+        if(player.y < (map.height - 1)) {
+            player.move(0, 1);
+        }
     }
 }
 var canvas;
@@ -66,8 +74,8 @@ function init() {
     document.onkeydown = keyInput;
     canvas = document.getElementById('game');
     context = canvas.getContext('2d');
-    player = new Player("Chris", 1, 1, "darkgrey", "lightgrey");
-    map = new Map(40, 20, 16, "darkgrey", "red");
+    player = new Player("Chris", 1, 1, "darkgrey", "green");
+    map = new Map(40, 20, 16, "darkgrey", "lightgrey");
 }
 function update() {
     console.log("Update");
