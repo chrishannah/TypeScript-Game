@@ -2,11 +2,15 @@ class Player {
     name: string;
     x: number;
     y: number;
-    constructor(name: string, initialX: number, initialY: number) {
+    fillStyle: string;
+    strokeStyle: string;
+    constructor(name: string, initialX: number, initialY: number, stroke: string, fill: string) {
         console.log(name + " has been created");
         this.name = name;
         this.x = initialX;
         this.y = initialY;
+        this.fillStyle = fill;
+        this.strokeStyle = stroke;
         playerloaded = true;
     }
     move(xOffset: number, yOffset: number) {
@@ -17,9 +21,9 @@ class Player {
     draw(x: number, y: number, tilesize: number) {
         context.save();
         context.linewidth = 1;
-        context.fillStyle = "lightblue";
+        context.fillStyle = this.fillStyle;
         context.fillRect(player.x * tilesize, player.y * tilesize, tilesize, tilesize);
-        context.strokeStyle = "darkgrey";
+        context.strokeStyle = this.strokeStyle;
         context.strokeRect(player.x * tilesize, player.y * tilesize, tilesize, tilesize);
         context.restore();
     }
@@ -95,7 +99,7 @@ function draw() {
         map.draw(map.width, map.height, map.tilesize);
     }
     if (playerloaded) {
-        player.draw(player.x, player.y, map.tilesize);
+        player.draw(player.x, player.y, map.tilesize, "darkgrey", "red");
     }
 }
 
