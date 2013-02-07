@@ -1,9 +1,11 @@
 var Player = (function () {
-    function Player(name, initialX, initialY) {
+    function Player(name, initialX, initialY, stroke, fill) {
         console.log(name + " has been created");
         this.name = name;
         this.x = initialX;
         this.y = initialY;
+        this.fillStyle = fill;
+        this.strokeStyle = stroke;
         playerloaded = true;
     }
     Player.prototype.move = function (xOffset, yOffset) {
@@ -14,16 +16,16 @@ var Player = (function () {
     Player.prototype.draw = function (x, y, tilesize) {
         context.save();
         context.linewidth = 1;
-        context.fillStyle = "lightblue";
-        context.fillRect(player.x * tilesize, player.y * tilesize, tilesize, tilesize);
-        context.strokeStyle = "darkgrey";
-        context.strokeRect(player.x * tilesize, player.y * tilesize, tilesize, tilesize);
+        context.fillStyle = this.fillStyle;
+        context.fillRect(this.x * tilesize, this.y * tilesize, tilesize, tilesize);
+        context.strokeStyle = this.strokeStyle;
+        context.strokeRect(this.x * tilesize, this.y * tilesize, tilesize, tilesize);
         context.restore();
     };
     return Player;
 })();
 var Map = (function () {
-    function Map(width, height, tilesize) {
+    function Map(width, height, tilesize, stroke, fill) {
         this.width = width;
         this.height = height;
         this.tilesize = tilesize;
@@ -34,9 +36,9 @@ var Map = (function () {
             for(var x = 0; x < width; x++) {
                 context.save();
                 context.linewidth = 1;
-                context.fillStyle = "lightgrey";
+                context.fillStyle = this.fillStyle;
                 context.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
-                context.strokeStyle = "darkgrey";
+                context.strokeStyle = this.strokeStyle;
                 context.strokeRect(x * tilesize, y * tilesize, tilesize, tilesize);
                 context.restore();
             }
@@ -64,8 +66,8 @@ function init() {
     document.onkeydown = keyInput;
     canvas = document.getElementById('game');
     context = canvas.getContext('2d');
-    player = new Player("Chris", 1, 1);
-    map = new Map(40, 20, 16);
+    player = new Player("Chris", 1, 1, "darkgrey", "lightgrey");
+    map = new Map(40, 20, 16, "darkgrey", "red");
 }
 function update() {
     console.log("Update");
