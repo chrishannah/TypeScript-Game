@@ -86,9 +86,9 @@ function init() {
     canvas = document.getElementById('game');
     context = canvas.getContext('2d');
     // Load Player
-    player = new Player("Chris", 1, 1);
+    player = new Player("Chris", 1, 1, "darkgrey", "lightgrey");
     // Load Map
-    map = new Map(40, 20, 16);
+    map = new Map(40, 20, 16, "darkgrey", "red");
 }
 
 function update() {
@@ -98,10 +98,10 @@ function update() {
 function draw() {
     console.log("Draw");
     if (maploaded) {
-        map.draw(map.width, map.height, map.tilesize, "darkgrey", "lightgrey");
+        map.draw(map.width, map.height, map.tilesize);
     }
     if (playerloaded) {
-        player.draw(player.x, player.y, map.tilesize, "darkgrey", "red");
+        player.draw(player.x, player.y, map.tilesize);
     }
 }
 
