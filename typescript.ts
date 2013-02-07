@@ -22,9 +22,9 @@ class Player {
         context.save();
         context.linewidth = 1;
         context.fillStyle = this.fillStyle;
-        context.fillRect(player.x * tilesize, player.y * tilesize, tilesize, tilesize);
+        context.fillRect(this.x * tilesize, this.y * tilesize, tilesize, tilesize);
         context.strokeStyle = this.strokeStyle;
-        context.strokeRect(player.x * tilesize, player.y * tilesize, tilesize, tilesize);
+        context.strokeRect(this.x * tilesize, this.y * tilesize, tilesize, tilesize);
         context.restore();
     }
 }
@@ -33,7 +33,9 @@ class Map {
     width: number;
     height: number;
     tilesize: number;
-    constructor(width: number, height: number, tilesize: number) {
+    fillStyle: number;
+    strokeStyle: number;
+    constructor(width: number, height: number, tilesize: number, stroke: string, fill: string) {
         this.width = width;
         this.height = height;
         this.tilesize = tilesize;
@@ -44,9 +46,9 @@ class Map {
             for (var x = 0; x < width; x++) {
                 context.save();
                 context.linewidth = 1;
-                context.fillStyle = "lightgrey";
+                context.fillStyle = this.fillStyle;
                 context.fillRect(x * tilesize, y * tilesize, tilesize, tilesize);
-                context.strokeStyle = "darkgrey";
+                context.strokeStyle = this.strokeStyle;
                 context.strokeRect(x * tilesize, y * tilesize, tilesize, tilesize);
                 context.restore();
             }
@@ -96,7 +98,7 @@ function update() {
 function draw() {
     console.log("Draw");
     if (maploaded) {
-        map.draw(map.width, map.height, map.tilesize);
+        map.draw(map.width, map.height, map.tilesize, "darkgrey", "lightgrey");
     }
     if (playerloaded) {
         player.draw(player.x, player.y, map.tilesize, "darkgrey", "red");
