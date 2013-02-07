@@ -33,8 +33,8 @@ class Map {
     width: number;
     height: number;
     tilesize: number;
-    fillStyle: number;
-    strokeStyle: number;
+    fillStyle: string;
+    strokeStyle: string;
     constructor(width: number, height: number, tilesize: number, stroke: string, fill: string) {
         this.width = width;
         this.height = height;
@@ -60,16 +60,24 @@ class Map {
 function keyInput(e) {
     if (e.keyCode == '38'){
         // Up
-        player.move(0, -1);
+        if (player.y > 0) {
+            player.move(0, -1);
+        }
     } else if (e.keyCode == '37') {
         // Left
-        player.move(-1, 0);
+        if (player.x > 0) {
+            player.move(-1, 0);
+        }
     } else if (e.keyCode == '39') {
         // Right
-        player.move(1, 0);
+        if (player.x < (map.width - 1)) {
+            player.move(1, 0);
+        }
     } else if (e.keyCode == '40') {
         // Down
-        player.move(0, 1);
+        if (player.y < (map.height - 1)) {
+            player.move(0, 1);
+        }
     }
 }
 
@@ -86,9 +94,9 @@ function init() {
     canvas = document.getElementById('game');
     context = canvas.getContext('2d');
     // Load Player
-    player = new Player("Chris", 1, 1, "darkgrey", "lightgrey");
+    player = new Player("Chris", 1, 1, "darkgrey", "green");
     // Load Map
-    map = new Map(40, 20, 16, "darkgrey", "red");
+    map = new Map(40, 20, 16, "darkgrey", "lightgrey");
 }
 
 function update() {
