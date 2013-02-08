@@ -39,6 +39,8 @@ class Map {
         this.width = width;
         this.height = height;
         this.tilesize = tilesize;
+        this.fillStyle = fill;
+        this.strokeStyle = stroke;
         maploaded = true;
     }
     draw(width: number, height: number, tilesize: number) {
@@ -81,6 +83,8 @@ function keyInput(e) {
     }
 }
 
+
+// Global variables
 var canvas: any;
 var context: any;
 var player: any;
@@ -100,7 +104,7 @@ function init() {
 }
 
 function update() {
-    console.log("Update");
+    
 }
 
 function draw() {
