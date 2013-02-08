@@ -29,6 +29,8 @@ var Map = (function () {
         this.width = width;
         this.height = height;
         this.tilesize = tilesize;
+        this.fillStyle = fill;
+        this.strokeStyle = stroke;
         maploaded = true;
     }
     Map.prototype.draw = function (width, height, tilesize) {
@@ -78,7 +80,6 @@ function init() {
     map = new Map(40, 20, 16, "darkgrey", "lightgrey");
 }
 function update() {
-    console.log("Update");
 }
 function draw() {
     console.log("Draw");
