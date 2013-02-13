@@ -1,26 +1,54 @@
 var Player = (function () {
     function Player(name, initialX, initialY, stroke, fill) {
         console.log(name + " has been created");
+        this.loadImages();
         this.name = name;
         this.x = initialX;
         this.y = initialY;
         this.fillStyle = fill;
         this.strokeStyle = stroke;
+        this.direction = "down";
         playerloaded = true;
     }
     Player.prototype.move = function (xOffset, yOffset) {
         this.x += xOffset;
         this.y += yOffset;
         console.log(this.name + " has been moved to x: " + this.x + " y: " + this.y);
+        if(xOffset == 1) {
+            this.direction = "right";
+        } else if(xOffset == -1) {
+            this.direction = "left";
+        } else if(yOffset == -1) {
+            this.direction = "up";
+        } else {
+            this.direction = "down";
+        }
     };
     Player.prototype.draw = function (x, y, tilesize) {
         context.save();
         context.linewidth = 1;
-        context.fillStyle = this.fillStyle;
-        context.fillRect(this.x * tilesize, this.y * tilesize, tilesize, tilesize);
+        if(this.direction == "up") {
+            context.drawImage(this.upImage, this.x * tilesize, this.y * tilesize, tilesize, tilesize);
+        } else if(this.direction == "down") {
+            context.drawImage(this.downImage, this.x * tilesize, this.y * tilesize, tilesize, tilesize);
+        } else if(this.direction == "left") {
+            context.drawImage(this.leftImage, this.x * tilesize, this.y * tilesize, tilesize, tilesize);
+        } else if(this.direction == "right") {
+            context.drawImage(this.rightImage, this.x * tilesize, this.y * tilesize, tilesize, tilesize);
+        }
         context.strokeStyle = this.strokeStyle;
         context.strokeRect(this.x * tilesize, this.y * tilesize, tilesize, tilesize);
         context.restore();
+    };
+    Player.prototype.loadImages = function () {
+        this.leftImage = new Image();
+        this.upImage = new Image();
+        this.downImage = new Image();
+        this.rightImage = new Image();
+        this.leftImage.src = 'left.bmp';
+        this.rightImage.src = 'right.bmp';
+        this.downImage.src = 'down.bmp';
+        this.upImage.src = 'up.bmp';
     };
     return Player;
 })();
